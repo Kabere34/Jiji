@@ -10,3 +10,9 @@ class SignupForm(UserCreationForm):
     fields=('username','email','password1','password2')
 
 
+class PostForm(forms.ModelForm):
+  class Meta:
+    model="Post"
+    exclude=["user"]
+
+
