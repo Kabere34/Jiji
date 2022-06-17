@@ -1,13 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth import login as user_login, authenticate
 from django.shortcuts import render,redirect
+from django.contrib.auth import login
 
 from .models import *
 from .forms import *
 # Create your views here.
 
 def signup(request):
-  form=SignupForm()
   if request.method=="POST":
     form=SignupForm(request.POST)
     if form.is_valid():
