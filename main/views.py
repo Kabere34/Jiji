@@ -31,6 +31,15 @@ def index(request):
   }
   return render(request,'main/index.html',context)
 
+def hood(request):
+  current_user=request.user
+  hoods=Neighbourhood.objects.all()
+  context={
+    "hoods":hoods
+  }
+  return render(request,'main/hood.html',context)
+
+
 def new_post(request):
   current_user=request.user
   if request.method == 'POST':
@@ -44,12 +53,43 @@ def new_post(request):
     form=PostForm()
   return render(request, 'main/new_post.html',{ "form":form})
 
-
-
-def hood(request):
+def new_bsn(request):
   current_user=request.user
-  hoods=Neighbourhood.objects.all()
-  context={
-    "hoods":hoods
-  }
-  return render(request,'main/hood.html',context)
+  if request.method=='POST':
+    form=BsnForm(request.POST,request.FILES)
+    if form.is_valid():
+      bsn=form.save(commit=False)
+      bsn.user=current_user
+      # bsn.neighbourhood=current_user
+      bsn.save()
+    return redirect('index')
+  else:
+    form=BsnForm()
+  return render(request, 'main/new_bsn.html',{ "form":form})
+
+
+# def new_hood(request):
+#   form=HoodForm()
+#   current_user=request.user
+#   if request.method == 'POST':
+#     form=HoodForm()
+#     if form.is_valid():
+#       hood=form.save(commit=False)
+#       hood.user=current_user
+#       hood.save()
+#     return redirect('hood')
+#   else:
+#     return render(request, 'main/new_hood.html',{ "form":form})
+
+
+# def create_hood(request):
+#     if request.method == 'POST':
+#         form = NeighbourHoodForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             hood = form.save(commit=False)
+#             hood.admin = request.user.profile
+#             hood.save()
+#             return redirect('hood')
+#     else:
+#         form = NeighbourHoodForm()
+#     return render(request, 'newhood.html', {'form': form})
