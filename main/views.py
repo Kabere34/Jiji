@@ -31,6 +31,20 @@ def index(request):
   }
   return render(request,'main/index.html',context)
 
+def new_post(request):
+  current_user=request.user
+  if request.method == 'POST':
+    form=PostForm(request.POST,request.FILES)
+    if form.is_valid():
+      post=form.save(commit=False)
+      post.user=current_user
+      post.save()
+    return redirect('index')
+  else:
+    form=PostForm()
+  return render(request, 'main/new_post.html',{ "form":form})
+
+
 
 def hood(request):
   current_user=request.user
