@@ -11,7 +11,8 @@ urlpatterns = [
      path('hood/', views.hood, name='hood'),
      path('new_post/', views.new_post, name='new_post'),
      path('new_bsn/', views.new_bsn, name='new_bsn'),
-     # path('new_hood/', views.new_hood, name='new_hood'),
+     path('new_hood/', views.new_hood, name='new_hood'),
+     path('profile/', views.profile, name='profile'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

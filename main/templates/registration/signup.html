@@ -4,29 +4,34 @@
 {% block content %}
 <div class="container-fluid">
   <div class="row mt-5">
-    <div class="col-md-7 "><div>
-      <img src="{% static 'images/register2.svg'%}" alt="">
-    </div></div>
-    <div class="col-md-5 mt-5"><div>
-          <div class="">
-              <div class="card" style="margin-top:2%; padding:20px">
-                  <div class="card-body">
-                      <h5 class="card-title"><a>Register to be a member</a> <span style="float:right">Are you a member? <a
-                              href="{%url 'login' %}" class="text-info">Login now</a></span></h5>
-                      <div class="card-text">
-                          <form action="" method="post" novalidate>
-                              {% csrf_token%}
-                              {{ form|crispy}}
-                              <button type="submit" class="btn btn-info btn-sm"> Register</button>
-                          </form>
-                      </div>
-                  </div>
-              </div>
+    <div class="col-md-7 ">
+      <div>
+        <!-- <img src="{%static 'images/signup.jpg'%}" style="width:20rem;"alt=""> -->
+      </div>
+    </div>
+    <div class="col-md-5 mt-5">
 
+      <div>
+        <div class="">
+          <div class="card" style="margin-top:2%; padding:20px">
+            <div class="card-body">
+              <h5 class="card-title"><a>Register to be a member</a> <span style="float:right">Are you a member? <a
+                    href="{%url 'login' %}" class="text-info">Login now</a></span></h5>
+              <div class="card-text">
+                <form action="" method="post" novalidate>
+                  {% csrf_token%}
+                  {{ form|crispy}}
+                  <button type="submit" class="btn btn-info btn-sm"> Register</button>
+                </form>
+              </div>
+            </div>
           </div>
 
+        </div>
 
-  </div></div>
+
+      </div>
+    </div>
   </div>
 </div>
 

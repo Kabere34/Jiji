@@ -8,6 +8,7 @@ from .forms import *
 # Create your views here.
 
 def signup(request):
+  form=SignupForm()
   if request.method=="POST":
     form=SignupForm(request.POST)
     if form.is_valid():
@@ -68,28 +69,28 @@ def new_bsn(request):
   return render(request, 'main/new_bsn.html',{ "form":form})
 
 
-# def new_hood(request):
-#   form=HoodForm()
-#   current_user=request.user
-#   if request.method == 'POST':
-#     form=HoodForm()
-#     if form.is_valid():
-#       hood=form.save(commit=False)
-#       hood.user=current_user
-#       hood.save()
-#     return redirect('hood')
-#   else:
-#     return render(request, 'main/new_hood.html',{ "form":form})
+def new_hood(request):
+  form=HoodForm()
+  current_user=request.user
+  if request.method == 'POST':
+    form=HoodForm(request.POST, request.FILES)
+    if form.is_valid():
+      hood=form.save(commit=False)
+      hood.user=current_user
+      hood.save()
+    return redirect('hood')
+  else:
+    return render(request, 'main/new_hood.html',{ "form":form})
 
 
-# def create_hood(request):
-#     if request.method == 'POST':
-#         form = NeighbourHoodForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             hood = form.save(commit=False)
-#             hood.admin = request.user.profile
-#             hood.save()
-#             return redirect('hood')
-#     else:
-#         form = NeighbourHoodForm()
-#     return render(request, 'newhood.html', {'form': form})
+def profile(request):
+  current_user = request.user
+  print(current_user, 'heey')
+  user=User.objects.all()
+  profile=Profile.objects.filter(user=request.user.pk)
+  print(profile, 'hello')
+  context={
+    "current_user": current_user,
+    "profile": profile
+  }
+  return render(request, 'main/profile.html',context)
