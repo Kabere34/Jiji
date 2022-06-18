@@ -9,6 +9,7 @@ urlpatterns = [
      path('account/', include('django.contrib.auth.urls')),
      path('', views.index, name='index'),
      path('hood/', views.hood, name='hood'),
+     path('new_post/', views.new_post, name='new_post'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
