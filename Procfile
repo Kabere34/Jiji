@@ -1,0 +1,1 @@
+web: jiji.wsgi
