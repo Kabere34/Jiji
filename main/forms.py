@@ -24,3 +24,7 @@ class HoodForm(forms.ModelForm):
     model=Neighbourhood
     exclude=["user"]
 
+class ProfileForm(forms.ModelForm):
+  class Meta:
+        model = Profile
+        exclude = ('user', 'neighbourhood')
