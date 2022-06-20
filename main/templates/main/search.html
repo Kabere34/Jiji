@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content%}
+<div class="container">
+{% if searched_business %}
+<h4 class="mt-4 p-2" style="border-bottom: 1px solid rgb(125, 120, 120); width:fit-content;">Found {{ searched_business|length }} items of searched term {{ message }}</h4>
+{% else %}
+<h2> Found 0 projects for the search term {{ message }}. Have you searched by<br> project-title? Please try again.</h2>
+{% endif %}
+<div class="row row-cols-1 row-cols-md-3 g-4 mt-5">
+{% if searched_business %}
+{% for business in searched_business %}
+<div class="col">
+  <div class="card">
+
+    {{business.name}}
+    <div class="card-body">
+      <span style="display:flex;flex-direction:row; justify-content:space-around;width:60%; justify-content:baseline;">
+        <a class="mt-2" href="{%url 'single_hood' business.id %}">
+          <p  style="color:rgb(13, 209, 209)">{{business.name}}</p>
+        </a>
+
+        </span>
+
+      <p class="card-text">
+      </p>
+      <div class="card-footer bg-white">
+
+
+        <!-- <small class="text-muted " >{{post.description}}</small> -->
+        <p class="card-text "><img class="rounded-circle nav-img" style="height: 30px; width: 30px"
+            src="{{business.user_profile.profile.avatar.url}}" class="nav-img mr-2" alt="">
+          By {{business.user_profile.username}} <span style="float:right">{{business.date|date}}</span>
+        </p>
+
+
+      </div>
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endif %}
+</div>
+</div>
+</div>
+</div>
+
+{% endblock%}
