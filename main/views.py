@@ -2,6 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.contrib.auth import login as user_login, authenticate
 from django.shortcuts import render,redirect
 from django.contrib.auth import login
+from django.contrib.auth.decorators import login_required
 
 from .models import *
 from .forms import *
@@ -40,6 +41,8 @@ def hoods(request):
   }
   return render(request, 'main/all_hoods.html', context)
 
+
+@login_required(login_url='login')
 def new_hood(request):
   form=HoodForm()
   current_user=request.user
@@ -83,7 +86,7 @@ def hood_members(request,hood_id):
   members=Profile.objects.filter(neighbourhood=hood)
   return render(request,'main/members.html',{"members":members})
 
-
+@login_required(login_url='login')
 def new_post(request,hood_id):
   hood=Neighbourhood.objects.get(id=hood_id)
   if request.method == 'POST':
@@ -98,6 +101,8 @@ def new_post(request,hood_id):
     form=PostForm()
   return render(request, 'main/new_post.html',{ "form":form})
 
+
+@login_required(login_url='login')
 def join_hood(request, id):
   neighbourhood = get_object_or_404(Neighbourhood, id=id)
   print (neighbourhood, 'neighbour')
@@ -106,6 +111,8 @@ def join_hood(request, id):
   request.user.profile.save()
   return redirect('all_hoods')
 
+
+@login_required(login_url='login')
 def leave_hood(request, id):
     hood = get_object_or_404(Neighbourhood, id=id)
     request.user.neighbourhood = None
@@ -116,6 +123,7 @@ def leave_hood(request, id):
 def profile(request, username):
     return render(request, 'main/profile.html')
 
+@login_required(login_url='login')
 def edit_profile(request, username):
     user = User.objects.get(username=username)
     print (username, 'hhhhhhhhhhhhhh')
