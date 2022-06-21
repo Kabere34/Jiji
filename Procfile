@@ -1,1 +1,1 @@
-web: gunicorn jiji-watch.wsgi
+web: gunicorn jiji.wsgi
