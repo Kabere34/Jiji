@@ -61,7 +61,7 @@ def single_hood(request,hood_id):
     hood = Neighbourhood.objects.get(id=hood_id)
     business = Business.objects.filter(neighbourhood=hood)
     posts = Post.objects.filter(hood=hood)
-    # posts = posts[::-1]
+    posts = posts[::-1]
     if request.method == 'POST':
         form = BsnForm(request.POST)
         if form.is_valid():
