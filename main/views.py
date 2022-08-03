@@ -58,11 +58,10 @@ def new_hood(request):
   return render(request, 'main/new_hood.html',{ "form":form})
 
 def single_hood(request,hood_id):
-
     hood = Neighbourhood.objects.get(id=hood_id)
     business = Business.objects.filter(neighbourhood=hood)
     posts = Post.objects.filter(hood=hood)
-    posts = posts[::-1]
+    # posts = posts[::-1]
     if request.method == 'POST':
         form = BsnForm(request.POST)
         if form.is_valid():
@@ -114,7 +113,7 @@ def join_hood(request, id):
 
 @login_required(login_url='login')
 def leave_hood(request, id):
-    hood = get_object_or_404(Neighbourhood, id=id)
+    neighbourhood = get_object_or_404(Neighbourhood, id=id)
     request.user.neighbourhood = None
     request.user.save()
     return redirect('all_hoods')
@@ -142,8 +141,10 @@ def edit_profile(request, username):
 def profile(request):
   current_user = request.user
   print(current_user, 'heey')
+
   user=User.objects.all()
   profile=Profile.objects.filter(user=request.user.pk)
+
   print(profile, 'hello')
   context={
     "current_user": current_user,
